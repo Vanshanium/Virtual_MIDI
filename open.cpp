@@ -9,28 +9,62 @@ using namespace cv;
 int main()
 {
 
+    Mat image, bi_image , blur_image , box_image, frame;
 
-    Mat img = imread("/home/vansha/Desktop/Project/Virtual_MIDI/test_image.jpg");
+    // image = imread("/home/vansha/Desktop/Project/Virtual_MIDI/test_image.jpg");
 
-    Mat image = imread("/home/vansha/Desktop/Project/Virtual_MIDI/test_image.jpg",IMREAD_GRAYSCALE);
-
-    if(image.empty())   
-    {
-        cout << "Image is not opened Properly.";
+    // if(image.empty())   
+    // {
+    //     cout << "Image is not opened Properly.";
         
-    };
+    // };
     
-    imshow("Window",img);
+    // // Showing the normal Image!
+    // imshow("dst",image);
+    // waitKey();
+    
 
-    waitKey();
+    // // Bilateral FIlter to the input Image
+    // bilateralFilter(image,bi_image,10,300,300);
+    // imshow("bilateral",bi_image);
+    // waitKey();
+    
+    // imwrite("Bilateral_cat.jpg",bi_image);
 
-    imshow("dst",image);
 
-    waitKey();
+    // // Blur to the input Image!!!
 
-    // bool result = imwrite("cat.jpg",image,third_param_2);
+    // blur(image,blur_image,Size(15,15));
+    // imshow("Blur",blur_image);
+    // waitKey();
 
-    // cout << result <<endl;
+    // imwrite("blure_cat.jpg",blur_image);
+
+    // //Box filter
+
+    // boxFilter(image,box_image,1,Size(15,15));
+    // imshow("Boxed",box_image);
+
+    // imwrite("Boxed_cat.jpg",box_image);
+
+    // lets try video input output
+
+    string path = "https://192.168.29.122:8080/video";
+
+    VideoCapture cap;
+
+    cap.open(0);
+
+    while(true)
+    {
+
+        cap.read(frame);
+
+        imshow("capture",frame);
+
+        waitKey(10);
+
+    }
 
 
     
