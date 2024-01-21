@@ -1,8 +1,3 @@
-#include<iostream>
+// Installing Opencv for C++
 
-
-int main(){
-
-    std::cout << "this is normal string!!!" << std::endl;
-}
-
+//Installing Bazel - https://www.forecr.io/blogs/installation/how-to-install-bazel

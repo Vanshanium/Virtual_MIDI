@@ -9,6 +9,8 @@ using namespace cv;
 int main()
 {
 
+                
+
     Mat image, bi_image , blur_image , box_image, frame;
 
     // image = imread("/home/vansha/Desktop/Project/Virtual_MIDI/test_image.jpg");

@@ -746,11 +746,11 @@
 		},
 		{
 			"isExternal" : true,
-			"path" : "/usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVConfig-version.cmake"
+			"path" : "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
 		},
 		{
 			"isExternal" : true,
-			"path" : "/usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake"
+			"path" : "/usr/local/share/OpenCV/OpenCVConfig.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -764,11 +764,11 @@
 		},
 		{
 			"isExternal" : true,
-			"path" : "/usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVModules.cmake"
+			"path" : "/usr/local/share/OpenCV/OpenCVModules.cmake"
 		},
 		{
 			"isExternal" : true,
-			"path" : "/usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVModules-release.cmake"
+			"path" : "/usr/local/share/OpenCV/OpenCVModules-release.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",

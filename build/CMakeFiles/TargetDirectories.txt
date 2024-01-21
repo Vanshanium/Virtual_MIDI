@@ -1,0 +1,3 @@
+/home/vansha/Desktop/Project/Virtual_MIDI/build/CMakeFiles/executable.dir
+/home/vansha/Desktop/Project/Virtual_MIDI/build/CMakeFiles/edit_cache.dir
+/home/vansha/Desktop/Project/Virtual_MIDI/build/CMakeFiles/rebuild_cache.dir
