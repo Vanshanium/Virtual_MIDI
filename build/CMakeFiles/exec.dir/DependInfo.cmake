@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/vansha/Desktop/Project/Virtual_MIDI/open.cpp" "CMakeFiles/executable.dir/open.cpp.o" "gcc" "CMakeFiles/executable.dir/open.cpp.o.d"
+  "/home/vansha/Desktop/Project/Virtual_MIDI/main.cpp" "CMakeFiles/exec.dir/main.cpp.o" "gcc" "CMakeFiles/exec.dir/main.cpp.o.d"
+  "/home/vansha/Desktop/Project/Virtual_MIDI/video_processing.cpp" "CMakeFiles/exec.dir/video_processing.cpp.o" "gcc" "CMakeFiles/exec.dir/video_processing.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -1,5 +1,5 @@
-CMakeFiles/executable.dir/open.cpp.o: \
- /home/vansha/Desktop/Project/Virtual_MIDI/open.cpp \
+CMakeFiles/exec.dir/main.cpp.o: \
+ /home/vansha/Desktop/Project/Virtual_MIDI/main.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -331,4 +331,5 @@ CMakeFiles/executable.dir/open.cpp.o: \
  /usr/local/include/opencv2/video.hpp \
  /usr/local/include/opencv2/video/tracking.hpp \
  /usr/local/include/opencv2/video/background_segm.hpp \
- /usr/local/include/opencv2/video/tracking_c.h
+ /usr/local/include/opencv2/video/tracking_c.h \
+ /home/vansha/Desktop/Project/Virtual_MIDI/video_processing.h

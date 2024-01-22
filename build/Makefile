@@ -117,41 +117,65 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named executable
+# Target rules for targets named exec
 
 # Build rule for target.
-executable: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 executable
-.PHONY : executable
+exec: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 exec
+.PHONY : exec
 
 # fast build rule for target.
-executable/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/executable.dir/build.make CMakeFiles/executable.dir/build
-.PHONY : executable/fast
+exec/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exec.dir/build.make CMakeFiles/exec.dir/build
+.PHONY : exec/fast
 
-open.o: open.cpp.o
-.PHONY : open.o
+main.o: main.cpp.o
+.PHONY : main.o
 
 # target to build an object file
-open.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/executable.dir/build.make CMakeFiles/executable.dir/open.cpp.o
-.PHONY : open.cpp.o
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exec.dir/build.make CMakeFiles/exec.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-open.i: open.cpp.i
-.PHONY : open.i
+main.i: main.cpp.i
+.PHONY : main.i
 
 # target to preprocess a source file
-open.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/executable.dir/build.make CMakeFiles/executable.dir/open.cpp.i
-.PHONY : open.cpp.i
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exec.dir/build.make CMakeFiles/exec.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-open.s: open.cpp.s
-.PHONY : open.s
+main.s: main.cpp.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-open.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/executable.dir/build.make CMakeFiles/executable.dir/open.cpp.s
-.PHONY : open.cpp.s
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exec.dir/build.make CMakeFiles/exec.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+video_processing.o: video_processing.cpp.o
+.PHONY : video_processing.o
+
+# target to build an object file
+video_processing.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exec.dir/build.make CMakeFiles/exec.dir/video_processing.cpp.o
+.PHONY : video_processing.cpp.o
+
+video_processing.i: video_processing.cpp.i
+.PHONY : video_processing.i
+
+# target to preprocess a source file
+video_processing.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exec.dir/build.make CMakeFiles/exec.dir/video_processing.cpp.i
+.PHONY : video_processing.cpp.i
+
+video_processing.s: video_processing.cpp.s
+.PHONY : video_processing.s
+
+# target to generate assembly for a file
+video_processing.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exec.dir/build.make CMakeFiles/exec.dir/video_processing.cpp.s
+.PHONY : video_processing.cpp.s
 
 # Help Target
 help:
@@ -161,10 +185,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... executable"
-	@echo "... open.o"
-	@echo "... open.i"
-	@echo "... open.s"
+	@echo "... exec"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... video_processing.o"
+	@echo "... video_processing.i"
+	@echo "... video_processing.s"
 .PHONY : help
 
 

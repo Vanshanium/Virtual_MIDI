@@ -7,11 +7,17 @@ project(virtual_midi)
 
 set(CMAKE_CXX_COMPILER g++)
 
+set(SOURCE_FILES 
+    main.cpp
+    video_processing.cpp
+)
+
 find_package(OpenCV REQUIRED)
 
 include_directories(${OpenCV_INCLUDE_DIR})
 
 
-add_executable(executable open.cpp)
+add_executable(exec ${SOURCE_FILES})
 
-target_link_libraries(executable ${OpenCV_LIBS})
+
+target_link_libraries(exec ${OpenCV_LIBS})
