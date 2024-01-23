@@ -12,13 +12,12 @@ int main()
 
     VideoCapture cap = preprocess();
 
-    // region_of_interest(cap);
+    region_of_interest(cap);
 
     while(true)
     {
 
         video_processing(cap);
-
         
     }
 

@@ -7,7 +7,7 @@ using namespace cv;
 VideoCapture preprocess();
 
 
-void region_of_interest(VideoCapture input_cap);
+Rect region_of_interest(VideoCapture input_cap);
 
 
 void video_processing(VideoCapture input_cap);
