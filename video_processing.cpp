@@ -36,20 +36,18 @@ void mouse_click(int event,int x,int y,int flags,void* userdata)
         circle(frame,Point2f(x,y),10,Scalar(100,0,255),-1);
 
         imshow("Point",frame);
-
-        cout << selected_points << endl;
-        
     }
 }
 
 
 
 
-void drawRectangle(Mat& image, const std::vector<Point2f>& points) {
-    // Draw a rectangle using the selected points
+void drawRectangle(Mat& image, const vector<Point2f>& points) {
+    
     if (points.size() == 4) {
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 4; ++i)
             line(image, points[i], points[i + 1], Scalar(0, 255, 0), 2);
+        
         line(image, points[3], points[0], Scalar(0, 255, 0), 2);
     }
 }
@@ -74,77 +72,57 @@ It gives the opject to send the video data to the cv.Matrix.
 
 
 
-Rect region_of_interest(VideoCapture input_cap)
+void region_of_interest(VideoCapture input_cap)
 {
-    //These defines the Color white which then makes the contour.
-    int hmin = 170, smin = 87, vmin = 0;
-    int hmax = 255,smax = 255,vmax = 255; 
-
-    Scalar upper_bound(hmax,smax,vmax),lower_bound(hmin,smin,vmin);
-    
-    vector<vector<Point>> contours;
-
-    cout << "Press q if you are the Paper is covered 100%" << endl;
-
-    Rect output_rect;
 
     input_cap.read(frame);
-
-    imshow("Point",frame);
-
-    setMouseCallback("Point",mouse_click,&frame);
-    
+    imshow("Target_Window",frame);
     waitKey();
 
-    drawRectangle(frame,selected_points);
+    char frame_confirmation;
 
-    imshow("See",frame);
+    char confirmation;
 
-    cout << "I am here!!! " << endl;
+    cout << "Is the frame set correctly!! Y/N" << endl;
+    cin >>  frame_confirmation;
 
-    // while(true)
-    // {
+    destroyWindow("Target_Window");
 
-
-    //     input_cap.read(frame); //Sends the frame data to the matrix
-
-    //     inRange(frame,lower_bound,upper_bound,binary_mask); // Finds the color range and gives the binary image "binary_mask"
+    if(frame_confirmation == 'Y' | 'y'){
 
 
-    //     //Finds Contours to the paper.
-    //     findContours(binary_mask,contours,RETR_EXTERNAL,CHAIN_APPROX_NONE); 
+        imshow("Point",frame);
+        cout << "Press q after you have selected the four Points!" << endl;
 
-    //     for (const auto& contour : contours) {
-    //         // Ignore small contours
-    //         if (contourArea(contour) < 100)
-    //             continue;
-
-    //         // Converts the contours to a rectangle.
-    //         output_rect = boundingRect(contour);
-
-    //         //Draws the Rectangle on the frame.
-    //         rectangle(frame,output_rect,Scalar(100,250,0),10,-1);
-            
-    //     }
+        setMouseCallback("Point",mouse_click,&frame);
         
-    //     imshow("ROI",frame);
-    //     if(waitKey(20) == 'q'){
-    //         break;            
-    //     }
+        if(waitKey() == 'q')
+        {
+            destroyWindow("Point");
+            drawRectangle(frame,selected_points);
+            imshow("See",frame);
+            waitKey(10);
+
+            cout << "Is this Retangle aligns with the Paper Piano!? Y/N" << endl;
+            cin >> confirmation;
+
+            if(confirmation == 'n'){
+                
+                cout << "Try Again!" << endl; 
+                selected_points.clear();
+                region_of_interest(input_cap);
+            }
+        
+        }
     
-    // }
-        
-    //     string confirmation;
-    //     cout << "Do you want to select the ROI manually!!" << endl;
-    //     cin >>  confirmation;
+    }
+    else{
+        region_of_interest(input_cap);
+    }
 
-    //     if(confirmation == "y"){
-    //         output_rect = selectROI("ROI",frame);
-    //     }
+    cout << "Region  of Interest Set perfectly!!!" << endl;
+    destroyAllWindows();
 
-    cout << output_rect << endl;
-
-    return output_rect;
 }
 
 

@@ -16,7 +16,7 @@ int main()
 
     while(true)
     {
-
+        cout << "lets see if its inside of the loop!!!" << endl;
         video_processing(cap);
         
     }
