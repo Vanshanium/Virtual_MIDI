@@ -12,12 +12,12 @@ int main()
 
     VideoCapture cap = preprocess();
 
-    region_of_interest(cap);
+    Mat crop_cord = region_of_interest(cap);
 
     while(true)
     {
-        cout << "lets see if its inside of the loop!!!" << endl;
-        video_processing(cap);
+
+        video_processing(cap,crop_cord);
         
     }
 

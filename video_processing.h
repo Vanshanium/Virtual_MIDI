@@ -7,10 +7,10 @@ using namespace cv;
 VideoCapture preprocess();
 
 
-void region_of_interest(VideoCapture input_cap);
+Mat region_of_interest(VideoCapture input_cap);
 
 
-void video_processing(VideoCapture input_cap);
+void video_processing(VideoCapture input_cap,Mat warp_matrix);
 
 
 
