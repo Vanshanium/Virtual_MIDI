@@ -141,12 +141,73 @@ Mat region_of_interest(VideoCapture input_cap)
     return warp_mat;    
 }
 
+Mat region_of_interest_1(VideoCapture input_cap)
+{
+
+    char frame_confirmation = 'y';
+    char confirmation = 'y';
+
+    input_cap.read(frame); //Reads the First Frame of the Video Stream.
+
+
+    // imshow("Target_Window",frame);
+    // waitKey(); //This is not working Fix it.
+
+    // cout << "Is the frame set correctly!! Y/N" << endl;
+    // cin >>  frame_confirmation;
+
+    // destroyWindow("Target_Window");
+
+    if(frame_confirmation == 'Y' | 'y'){
+
+        imshow("Point",frame);
+
+        //Send the Frame to the Mouse click Function.
+        setMouseCallback("Point",mouse_click,&frame);
+       
+        cout << "Select in the following order....\n1st - Top Left   2nd - Top Right\n3rd - Bottom Left   4th - Bottom Right" << endl;
+        cout << "Press q after you have selected the four Points!" << endl;
+        
+        //Destroys the Point Window with q
+        if (waitKey() == 'q')
+            destroyWindow("Point");
+    
+    }
+
+    warp_mat = warpper(selected_points);
+
+    warpPerspective(frame,warped_image,warp_mat,Point(width,height)); //Warps the Image.
+
+    // imshow("Warped",warped_image); //Shows it Duhh...Why are you even Writing this.
+    // waitKey();
+    
+    // cout << "Is the Image Croped and Warped Perfectly??" << endl;
+    // cin >> confirmation;
+
+    if(confirmation == 'y'){
+
+        cout << "Region  of Interest Set perfectly!!!" << endl;
+        destroyAllWindows();
+
+    }
+
+    else{
+        
+        cout << "Try Again!" << endl; 
+        selected_points.clear(); //Empties the seleted Point Vector
+        region_of_interest(input_cap); //Recurtion Babyyyy.
+    }
+
+    return warp_mat;    
+}
+
 /**
     @brief This is the core function!!
 
     @param : //TO WRITE
     @return : //TO WRITE 
 */
+
 
 void video_processing(VideoCapture input_cap,Mat warp_matrix)
 {   
@@ -159,6 +220,8 @@ void video_processing(VideoCapture input_cap,Mat warp_matrix)
 
     imshow("Capture",warped_image);
     waitKey(1);
+
+    imwrite("frame.jpg",warped_image);
 
     }
     else{
