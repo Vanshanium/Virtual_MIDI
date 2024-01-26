@@ -10,55 +10,44 @@ using namespace cv;
 int main()
 {
 
+    Mat image,image_colour_mask,hsv,g_blur,black_image,binary,canny_image;
 
+    // VideoCapture cap = preprocess();
+
+    // Mat crop = region_of_interest_1(cap);
+    
+    image = imopen("/home/vansha/Desktop/Project/Virtual_MIDI/operational/I")
+
+
+    vector<vector<Point>> contours_array;
+
+
+    //Best Values for the hsv inrange.
     int hmax = 179 ,smax = 60,vmax = 180;
-    int hmin = 120,smin = 10,vmin = 115;
+    int hmin = 120,smin = 10,vmin = 120;
 
-    Mat image,image_colour_mask,hsv,g_blur,black_image,binary,dilate_image;
+    // Best values for the rgb inrange.
+    int a1 = 194, a2 = 196 ,  a3 = 233;
+    int b1 = 126, b2 =  140, b3 = 161;
 
-    VideoCapture cap = preprocess();
-    
-    Mat crop = region_of_interest_1(cap);
+    Rect anime; 
 
-    // image = imread("/home/vansha/Desktop/Project/Virtual_MIDI/operational/frame.jpg");
+    Mat kernel = getStructuringElement(MORPH_RECT, Size(6, 6));
 
-    // cvtColor(image,hsv,COLOR_BGR2HSV);
-
-    // imshow("Hsv",hsv);
-    // waitKey();
-
-
-    int t1 = 70,t2 = 90;
-    
-
-    // namedWindow("track");
-    // createTrackbar("hmax","track",&hmax,255);
-    // createTrackbar("hmin","track",&hmin,255);
-    // createTrackbar("smax","track",&smax,255);
-    // createTrackbar("smin","track",&smin,255);
-    // createTrackbar("vmax","track",&vmax,255);
-    // createTrackbar("vmin","track",&vmin,255);
-
-    int g = 3;
-
-    float sigma_x = 0.6;    
-    float sigma_y = 0.2;
-    int m = 1; 
-
-    namedWindow("track");
-    createTrackbar("dilate","track",&m,10);
-    // createTrackbar("t1","track",&t1,200);
-    // createTrackbar("t2","track",&t1,200);
-    // createTrackbar("x","track",&x,10);
-    // createTrackbar("y","track",&y,10);
-
-    Mat kernal = getStructuringElement(0,Size(m,m));
+    //Toggles for anyting You wanna do!.
+    namedWindow("Anything");
+    createTrackbar("a1", "Anything", &a1, 255);
+    createTrackbar("a2", "Anything", &a2, 255);
+    createTrackbar("a3", "Anything", &a3, 255);
+    createTrackbar("b1", "Anything", &b1, 255);
+    createTrackbar("b2", "Anything", &b2, 255);
+    createTrackbar("b3", "Anything", &b3, 255);
 
     Scalar upper_bound(hmax,smax,vmax),lower_bound(hmin,smin,vmin);
     
     while(true){    
 
-        kernal = getStructuringElement(0,Size(2,2));
+        Scalar upper(a1,a2,a3),lower(b1,b2,b3);
 
         cap.read(image);
 
@@ -71,37 +60,36 @@ int main()
             imshow("normal_image",image);
             waitKey(1);
             
-
-            // Gaussian Blur.
-            // GaussianBlur(image,g_blur,Size(g,g),sigma_x,sigma_y);
-            // imshow("gBlur",g_blur);
+            // cvtColor(image,image,COLOR_BGR2RGB);
+            // imshow("rgb",image);
             // waitKey(1);
 
 
-            // This gives the mask of the fingersss.
-            Canny(image,image_colour_mask,t1,t2); 
-
-            dilate(image_colour_mask,dilate_image,kernal);
-            imshow("Canny",dilate_image);
-            waitKey(1);
-
-
-
-            //Nails Detector.
-            cvtColor(image,hsv,COLOR_BGR2HSV);
-
-            // imshow("HSV",hsv);
+            // //Nails Detector.
+            // cvtColor(image,hsv,COLOR_BGR2HSV);
+            // imshow("HSV Image",hsv);
             // waitKey(1);
 
-            inRange(hsv,lower_bound,upper_bound,black_image);
+            inRange(image,lower,upper,black_image);
 
+            // morphologyEx(black_image,black_image, MORPH_CLOSE, kernel);
             imshow("mask",black_image);   
-
-
-            bitwise_and(dilate_image,black_image,binary);
-
-            imshow("Addition",binary);
             waitKey(1);
+
+
+            // findContours(black_image,contours_array,RETR_EXTERNAL,CHAIN_APPROX_SIMPLE);
+
+            // for(auto contour: contours_array){ 
+            //     if(contour.size() > area){
+            //     anime = boundingRect(contour);
+            //     rectangle(image,anime,Scalar(100,0,255),2);    
+            //     }
+            // }
+
+            // imshow("Tracker",image);
+            // waitKey(1);
+            imwrite("Frame_1.jpg",image);
+
 
             if(waitKey(1) == 'q'){
                 break;

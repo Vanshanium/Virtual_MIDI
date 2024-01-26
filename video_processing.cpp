@@ -17,11 +17,16 @@ float height = 200, width = 600;
 VideoCapture preprocess()
 {
 
-    string Path = "https://192.168.29.122:8080/video";
+    string Path = "https://192.168.29.7:8080/video";
 
     VideoCapture cap;
 
     cap.open(Path);
+
+    if(!cap.isOpened()){
+        cout << "There is a problem getting the Video Data from the Source!!!" << endl;
+    }
+    
     
     return cap;
 
