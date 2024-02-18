@@ -17,7 +17,7 @@ float height = 200, width = 600;
 VideoCapture preprocess()
 {
 
-    string Path = "https://192.168.29.7:8080/video";
+    string Path = "https://192.168.29.122:8080/video";
 
     VideoCapture cap;
 
@@ -27,13 +27,14 @@ VideoCapture preprocess()
         cout << "There is a problem getting the Video Data from the Source!!!" << endl;
     }
     
-    
     return cap;
 
 }
 
 /**
     @brief This is also a call back function called to obtain the Perspective warp Matrix.
+
+    // Do these two lines of code manually to reduce redundancy!
 
     @param : vector<Point2f> Takes in the Vector of the Points.
     @return : Perspective Matrix which is used with warpPerspective.
@@ -43,7 +44,7 @@ Mat warpper(vector<Point2f> initial_points)
 {
     Point2f target_points[4] = {{0.0f,0.0f},{width,0.0f},{0.0f,height},{width,height}};
 
-    return warp_mat = getPerspectiveTransform(selected_points.data(),target_points);
+    return warp_mat = getPerspectiveTransform(initial_points.data(),target_points);
 
 }
 
@@ -108,6 +109,8 @@ Mat region_of_interest(VideoCapture input_cap)
         imshow("Point",frame);
 
         //Send the Frame to the Mouse click Function.
+        // It is a loop I guess, You can make n numbers of points.
+        
         setMouseCallback("Point",mouse_click,&frame);
        
         cout << "Select in the following order....\n1st - Top Left   2nd - Top Right\n3rd - Bottom Left   4th - Bottom Right" << endl;
@@ -119,7 +122,8 @@ Mat region_of_interest(VideoCapture input_cap)
     
     }
 
-    warp_mat = warpper(selected_points);
+    warp_mat = warpper(selected_points); //Define the selected Points inside of the function Scope.
+
 
     warpPerspective(frame,warped_image,warp_mat,Point(width,height)); //Warps the Image.
 
@@ -214,7 +218,7 @@ Mat region_of_interest_1(VideoCapture input_cap)
 */
 
 
-void video_processing(VideoCapture input_cap,Mat warp_matrix)
+Mat video_processing(VideoCapture input_cap,Mat warp_matrix)
 {   
 
     input_cap.read(frame);
@@ -222,17 +226,20 @@ void video_processing(VideoCapture input_cap,Mat warp_matrix)
     if(!frame.empty()){
 
     warpPerspective(frame,warped_image,warp_matrix,Point(width,height));
+    // This line crops and wraps it in a perfect rectangle!
 
-    imshow("Capture",warped_image);
-    waitKey(1);
-
-    imwrite("frame.jpg",warped_image);
+    // imshow("Capture",warped_image);
+    // waitKey(1);
 
     }
     else{
         cout << "Skiped Frame!!!" << endl;
+        destroyAllWindows();
     }
 
+    return warped_image;
+
+    
     // Crop the image here.
 
     // blur(frame,blured_frame,Size(15,15));

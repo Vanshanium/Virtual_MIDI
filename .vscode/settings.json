@@ -72,5 +72,6 @@
         "typeindex": "cpp",
         "variant": "cpp",
         "bvh": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }

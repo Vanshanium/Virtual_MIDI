@@ -1,31 +1,36 @@
-import mediapipe as mp
-import cv2 as cv 
+import os
+from time import sleep
 
-hand_class = mp.solutions.hands.Hands()
+
+# This imports and linkes the library directly!!!!
+try:
+    import cv2 as cv 
+except ImportError:
+    print("installing the Exteternall Dependency")
+    os.system("pip install opencv-python")
+    import cv2 as cv
+
+
+
 
 Path = "https://192.168.29.122:8080/video"
 
 cap = cv.VideoCapture()
 
-mpDraw = mp.solutions.drawing_utils
-
 
 cap.open(Path)
+
+i = 1
+
+sleep(5)
+
+print("Recording Started!!!!")
 
 while(True):
 
     success, frame = cap.read()
     
-
-    frame_rgb = cv.cvtColor(frame,cv.COLOR_BGR2RGB)
-    
-    results = hand_class.process(frame_rgb)
-
-    if(results.multi_hand_landmarks):
-        for ass in results.multi_hand_landmarks:
-            mpDraw.draw_landmarks(frame_rgb,ass)
-
-
-    cv.imshow("window",frame_rgb)
-
+    cv.imshow("window",frame)
+    cv.imwrite(f"frame-{i}.jpg",frame)
     cv.waitKey(20)
+    i += 1
