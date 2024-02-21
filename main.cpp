@@ -38,6 +38,7 @@ int main()
         imshow("Tracking",frame_1);
         
         waitKey(30);
+ 
     }
 
 

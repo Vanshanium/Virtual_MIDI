@@ -15,10 +15,10 @@ except ImportError:
 
 Path = "https://192.168.29.122:8080/video"
 
-cap = cv.VideoCapture()
+cap = cv.VideoCapture(0)
 
 
-cap.open(Path)
+# cap.open(Path)
 
 i = 1
 

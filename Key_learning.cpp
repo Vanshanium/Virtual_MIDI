@@ -9,13 +9,29 @@ int piano_x = 560, piano_y = 400;
 
 // int draw_key()
 // {
-
-
 // }
 
-Vector2f white_key_dem(80,400);
+Vector2f white_key_dem(76,400);
+
 Vector2f black_key_dem(50,250);
 
+Color key_white(245,255,255);
+Color pressed_white(230,150,255);
+
+Color key_black(40,40,45);
+
+
+
+RectangleShape make_key(Vector2f dimensions,Color key_color,int x_pos,int y_pos = 0)
+{
+    RectangleShape key(dimensions); 
+
+    key.move(x_pos,y_pos);
+    key.setFillColor(key_color);
+
+    return key;
+
+}
 
 
 int main()
@@ -26,38 +42,35 @@ int main()
 
 
     // Defining the White Keys.
-    RectangleShape c4(white_key_dem); 
+    RectangleShape c4 = make_key(white_key_dem,key_white,2); 
 
-    RectangleShape d4(white_key_dem); 
-    d4.move(white_key_dem.x,0);
+    RectangleShape d4 = make_key(white_key_dem,key_white,82); 
 
-    RectangleShape e4(white_key_dem); 
-    e4.move(2*white_key_dem.x,0);
-    
-    RectangleShape f4(white_key_dem); 
-    f4.move(3*white_key_dem.x,0);
+    RectangleShape e4 = make_key(white_key_dem,key_white,162); 
 
-    RectangleShape g4(white_key_dem);
-    g4.move(4*white_key_dem.x,0);
+    RectangleShape f4 = make_key(white_key_dem,key_white,242); 
 
-    RectangleShape a4(white_key_dem);
-    a4.move(5*white_key_dem.x,0);
+    RectangleShape g4 = make_key(white_key_dem,key_white,322); 
 
-    RectangleShape b4(white_key_dem); 
-    b4.move(6*white_key_dem.x,0);
-    b4.setFillColor(Color(200,100,0));
+    RectangleShape a4 = make_key(white_key_dem,key_white,402); 
+
+    RectangleShape b4 = make_key(white_key_dem,key_white,482); 
+
 
 
     // Defing the Black Keys
 
-    RectangleShape db(black_key_dem);
-    RectangleShape eb(black_key_dem);
-    RectangleShape gb(black_key_dem);
-    RectangleShape ab(black_key_dem);
-    RectangleShape bb(black_key_dem);
 
 
+    RectangleShape db = make_key(black_key_dem,key_black,55);
 
+    RectangleShape eb = make_key(black_key_dem,key_black,135);
+
+    RectangleShape gb = make_key(black_key_dem,key_black,295);
+
+    RectangleShape ab = make_key(black_key_dem,key_black,375);
+
+    RectangleShape bb = make_key(black_key_dem,key_black,455);
 
 
 
@@ -70,31 +83,71 @@ int main()
     {
 
 
-        // Listens for all the events!!!
+        // Listens for all the events!!! Lets fucking call it Event Loop!
+        // Works until there are events in the array
         while(piano.pollEvent(my_event)){
 
             if (my_event.type == Event::Closed)
             {
                 piano.close();
             }
+
+
+            if(my_event.type == Event::KeyPressed){
+                
+                if(my_event.key.code == Keyboard::Q){
+                    
+                    c4.setFillColor(pressed_white);
+                    
+                }
+                if(my_event.key.code == Keyboard::W){
+                    
+                    d4.setFillColor(pressed_white);
+                    
+                }
+            
+            }
+
+            if(my_event.type == Event::KeyReleased){
+            
+                if(my_event.key.code == Keyboard::Q){
+                        
+                        c4.setFillColor(key_white);
+                        
+                    }
+                    if(my_event.key.code == Keyboard::W){
+                        
+                        d4.setFillColor(key_white);
+                        
+                    }
+            
+            }    
             
 
+
+
+            piano.clear();
+
+            piano.draw(c4);
+            piano.draw(d4);
+            piano.draw(e4);
+            piano.draw(f4);
+            piano.draw(g4);
+            piano.draw(a4);
+            piano.draw(b4);
+
+            piano.draw(db);
+            piano.draw(eb);
+            piano.draw(gb);
+            piano.draw(ab);
+            piano.draw(bb);
+
+
+
+            piano.display();
+
+
         }
-
-
-        piano.clear();
-
-        piano.draw(c4);
-        piano.draw(d4);
-        piano.draw(e4);
-        piano.draw(f4);
-        piano.draw(g4);
-        piano.draw(a4);
-        piano.draw(b4);
-        
-
-        piano.display();
-
 
 
     }
