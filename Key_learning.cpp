@@ -3,13 +3,13 @@
 
 
 using namespace sf;
+using namespace std;
 
+
+int number_of_keys = 7;
 
 int piano_x = 560, piano_y = 400;
 
-// int draw_key()
-// {
-// }
 
 Vector2f white_key_dem(76,400);
 
@@ -20,6 +20,11 @@ Color pressed_white(230,150,255);
 
 Color key_black(40,40,45);
 
+
+class key{
+    
+
+}
 
 
 RectangleShape make_key(Vector2f dimensions,Color key_color,int x_pos,int y_pos = 0)
@@ -34,27 +39,45 @@ RectangleShape make_key(Vector2f dimensions,Color key_color,int x_pos,int y_pos 
 }
 
 
+void pressed_key_check()
+{
+
+
+
+}
+
+
+
 int main()
 {
 
     RenderWindow piano(VideoMode(piano_x,piano_y),"Piano_window");
 
 
+    vector<RectangleShape> all_keys(number_of_keys);
+
 
     // Defining the White Keys.
     RectangleShape c4 = make_key(white_key_dem,key_white,2); 
+    all_keys.push_back(c4);
 
     RectangleShape d4 = make_key(white_key_dem,key_white,82); 
+    all_keys.push_back(d4);
 
     RectangleShape e4 = make_key(white_key_dem,key_white,162); 
+    all_keys.push_back(e4);
 
     RectangleShape f4 = make_key(white_key_dem,key_white,242); 
+    all_keys.push_back(f4);
 
     RectangleShape g4 = make_key(white_key_dem,key_white,322); 
+    all_keys.push_back(g4);
 
     RectangleShape a4 = make_key(white_key_dem,key_white,402); 
+    all_keys.push_back(a4);
 
     RectangleShape b4 = make_key(white_key_dem,key_white,482); 
+    all_keys.push_back(b4);
 
 
 
@@ -63,6 +86,8 @@ int main()
 
 
     RectangleShape db = make_key(black_key_dem,key_black,55);
+    all_keys.push_back(b4);
+
 
     RectangleShape eb = make_key(black_key_dem,key_black,135);
 
@@ -71,6 +96,21 @@ int main()
     RectangleShape ab = make_key(black_key_dem,key_black,375);
 
     RectangleShape bb = make_key(black_key_dem,key_black,455);
+
+
+    Keyboard::Key Keymapping[number_of_keys];
+
+    Keymapping[0] = Keyboard::Num1;
+    Keymapping[1] = Keyboard::Num2;
+    Keymapping[2] = Keyboard::Num3;
+    Keymapping[3] = Keyboard::Num4;
+    Keymapping[4] = Keyboard::Num5;
+    Keymapping[5] = Keyboard::Num6;
+    Keymapping[6] = Keyboard::Num7;
+
+
+
+
 
 
 
