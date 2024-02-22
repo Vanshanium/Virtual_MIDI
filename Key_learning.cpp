@@ -15,25 +15,20 @@ Vector2f white_key_dem(76,400);
 Vector2f black_key_dem(50,250);
 
 Color key_white(245,255,255);
-Color pressed_white(230,150,255);
+Color pressed_white(245,255,230);  
 
 Color key_black(40,40,45);
+Color pressed_black(50,60,65);
+
+
+
+
+
 
 
 class Key_class{
 
 private:
-
-RectangleShape make_key(Vector2f dimensions,Color key_color,int x_pos,int y_pos = 0)
-{
-    RectangleShape key(dimensions); 
-
-    key.move(x_pos,y_pos);
-    key.setFillColor(key_color);
-
-    return key;
-
-}
 
 Keyboard::Key Keymapping[12] = {Keyboard::Num1,
 Keyboard::Num2,
@@ -54,18 +49,62 @@ class note{
 public:
 
     RectangleShape shape;
-    string type;
+    string key_type;
 
-    note(string type,string sound,int position)
+    note(string type,int position,vector<note>& key_array)
     {
+        key_type = type;
+
         if (type == "white")
         {
             shape.setSize(white_key_dem);
+            shape.setFillColor(key_white);
+
+            shape.setPosition(position,0);
+
+
+        }
+        if(type == "black")
+        {
+            shape.setSize(black_key_dem);
+            shape.setFillColor(key_black);
+
             shape.setPosition(position,0);
 
         }
         
+        key_array.push_back(*this);
+        // Now you get it now what this means in classes!
+
     }
+
+    void set_default(){
+        if (key_type == "white"){
+            
+            shape.setFillColor(key_white);
+        
+        }
+        else{
+            
+            shape.setFillColor(key_black);
+
+        }
+    }
+
+    void set_play(){
+
+        if (key_type == "white"){
+            
+            shape.setFillColor(Color(100,100,100));
+        
+        }
+        else{
+            
+            shape.setFillColor(key_white);
+
+        }
+    }
+        
 
 };
 
@@ -73,74 +112,37 @@ public:
 
 public:
     
-    vector<RectangleShape> key_list;
-
-    vector<RectangleShape> white_keys;
-
-    vector<RectangleShape> black_keys;
-
+    vector<note> key_list;
 
     // I Don't Know but this objects are not being defined outside of this functions!
 
     Key_class()
     {
 
-        //Defines all the white keys.
-        // Whites are defined first.
-        // Because they are in majority!!!!???
+        // OOPS is Sexy!!!!!
+        // why black keys are in minoriity ??????
 
-        RectangleShape c4 = make_key(white_key_dem,key_white,2); 
-        key_list.push_back(c4);
-        white_keys.push_back(c4);
+        note c4("white",2,key_list);
 
-        RectangleShape d4 = make_key(white_key_dem,key_white,82); 
-        key_list.push_back(d4);
-        white_keys.push_back(c4);
+        note d4("white",82,key_list);
 
-        RectangleShape e4 = make_key(white_key_dem,key_white,162); 
-        key_list.push_back(e4);
-        white_keys.push_back(c4);
+        note e4("white",162,key_list);
 
-        RectangleShape f4 = make_key(white_key_dem,key_white,242); 
-        key_list.push_back(f4);
-        white_keys.push_back(c4);
+        note f4("white",242,key_list);
 
-        RectangleShape g4 = make_key(white_key_dem,key_white,322); 
-        key_list.push_back(g4);
-        white_keys.push_back(c4);
+        note g4("white",322,key_list);
 
-        RectangleShape a4 = make_key(white_key_dem,key_white,402); 
-        key_list.push_back(a4);
-        white_keys.push_back(c4);
+        note a4("white",402,key_list);
 
-        RectangleShape b4 = make_key(white_key_dem,key_white,482); 
-        key_list.push_back(b4);
-        white_keys.push_back(c4);
-
-        // Defining the Black Keys after whites
-        // Because they are in minority!
-
-        RectangleShape db = make_key(black_key_dem,key_black,55);
-        key_list.push_back(db);
-        black_keys.push_back(db);
+        note b4("white",482,key_list);
 
 
-        RectangleShape eb = make_key(black_key_dem,key_black,135);
-        key_list.push_back(eb);
-        black_keys.push_back(eb);
-        
-        RectangleShape gb = make_key(black_key_dem,key_black,295);
-        key_list.push_back(gb);
-        black_keys.push_back(gb);
+        note db("black",55,key_list);
+        note eb("black",135,key_list);
+        note gb("black",295,key_list);
+        note ab("black",375,key_list);
+        note bb("black",455,key_list);
 
-        RectangleShape ab = make_key(black_key_dem,key_black,375);
-        key_list.push_back(ab);
-        black_keys.push_back(ab);
-
-        RectangleShape bb = make_key(black_key_dem,key_black,455);
-        key_list.push_back(bb);
-        black_keys.push_back(bb);
-    
     }  
 
 
@@ -148,9 +150,9 @@ public:
     // Write what does this do!
     void draw_keys(RenderWindow& window){
 
-        for(RectangleShape& note : key_list){
+        for(note& key : key_list){
 
-            window.draw(note);
+            window.draw(key.shape);
         }
     
 
@@ -162,7 +164,7 @@ public:
         for(Keyboard::Key& key_id : Keymapping){
             if(event.key.code == key_id){
 
-                key_list[i].setFillColor(pressed_white);
+                key_list[i].set_play();
             }
             i += 1;
         }
@@ -174,7 +176,7 @@ public:
         for(Keyboard::Key& key_id : Keymapping){
             if(event.key.code == key_id){
 
-                key_list[i].setFillColor(key_white);
+                key_list[i].set_default();
             }
             i += 1;
         }         
@@ -223,8 +225,6 @@ int main()
 
             }    
             
-
-
 
             piano.clear();
 
