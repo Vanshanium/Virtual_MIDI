@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include<iostream>
 
 
@@ -15,10 +16,10 @@ Vector2f white_key_dem(76,400);
 Vector2f black_key_dem(50,250);
 
 Color key_white(245,255,255);
-Color pressed_white(245,255,230);  
+Color pressed_white(175,225,190);  
 
 Color key_black(40,40,45);
-Color pressed_black(50,60,65);
+Color pressed_black(85,95,130);
 
 
 
@@ -27,6 +28,7 @@ Color pressed_black(50,60,65);
 
 
 class Key_class{
+
 
 private:
 
@@ -50,10 +52,15 @@ public:
 
     RectangleShape shape;
     string key_type;
+    Music* music_obj;
 
-    note(string type,int position,vector<note>& key_array)
+    note(string type,int position,vector<note>& key_array,string note_path)
     {
         key_type = type;
+
+        music_obj = new Music();
+
+        music_obj->openFromFile(note_path);
 
         if (type == "white")
         {
@@ -89,20 +96,24 @@ public:
             shape.setFillColor(key_black);
 
         }
+        music_obj->stop();
     }
 
     void set_play(){
 
         if (key_type == "white"){
             
-            shape.setFillColor(Color(100,100,100));
+            shape.setFillColor(pressed_white);
         
         }
         else{
             
-            shape.setFillColor(key_white);
+            shape.setFillColor(pressed_black);
 
         }
+
+        music_obj->play();
+
     }
         
 
@@ -122,29 +133,22 @@ public:
         // OOPS is Sexy!!!!!
         // why black keys are in minoriity ??????
 
-        note c4("white",2,key_list);
-
-        note d4("white",82,key_list);
-
-        note e4("white",162,key_list);
-
-        note f4("white",242,key_list);
-
-        note g4("white",322,key_list);
-
-        note a4("white",402,key_list);
-
-        note b4("white",482,key_list);
-
-
-        note db("black",55,key_list);
-        note eb("black",135,key_list);
-        note gb("black",295,key_list);
-        note ab("black",375,key_list);
-        note bb("black",455,key_list);
+        note c4 ("white",2,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/c4.wav");
+        note d4 ("white",82,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/d4.wav");
+        note e4 ("white",162,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/e4.wav");
+        note f4 ("white",242,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/f4.wav");
+        note g4 ("white",322,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/g4.wav");
+        note a4 ("white",402,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/a4.wav");
+        note b4 ("white",482,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/b4.wav");
+ 
+        note db ("black",55,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/db4.wav");
+        note eb ("black",135,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/eb4.wav");
+        note gb ("black",295,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/gb4.wav");
+        note ab ("black",375,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/ab4.wav");
+        note bb ("black",455,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/bb4.wav");
 
     }  
-
+ 
 
 
     // Write what does this do!
@@ -165,6 +169,7 @@ public:
             if(event.key.code == key_id){
 
                 key_list[i].set_play();
+                
             }
             i += 1;
         }
@@ -173,6 +178,7 @@ public:
     void key_recheck(Event& event){
 
         int i = 0;
+
         for(Keyboard::Key& key_id : Keymapping){
             if(event.key.code == key_id){
 

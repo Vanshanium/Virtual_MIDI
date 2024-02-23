@@ -41,4 +41,5 @@ add_executable(key Key_learning.cpp)
 target_link_libraries(key 
 sfml-graphics
 sfml-window
-sfml-system)
+sfml-system
+sfml-audio)
