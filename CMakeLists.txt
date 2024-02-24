@@ -24,16 +24,23 @@ set(SOURCE_FILES
 
 # This trys to find the required libraries 
 find_package(OpenCV REQUIRED)
-find_package(SFML COMPONENTS graphics window system audio REQUIRED)
+find_package(Python REQUIRED)
 
-# And them set their paths to this variable
-include_directories(${OpenCV_INCLUDE_DIR})
+# This finds the path to the header files.
+include_directories(${OpenCV_INCLUDE_DIR}
+${Python_INCLUDE_DIR})
 
+link_libraries(${Python3_LIBRARIES})
 
 add_executable(exec ${SOURCE_FILES})
 
 # This links those librabies Linking is done after making the object file!!
-target_link_libraries(exec ${OpenCV_LIBS})
+# This gives the path to the .so files!
+target_link_libraries(exec ${OpenCV_LIBS}
+ python3.10)
+
+# IT adds -l with the variable provided!
+
 
 
 add_executable(key Key_learning.cpp)
