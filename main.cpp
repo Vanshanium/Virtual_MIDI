@@ -29,9 +29,6 @@ PyObject* ConvertImageToNumpy(const Mat& image) {
 int main()
 {
 
-
-    cout << "AAAAAAAAAAAAAAAAAAAAA" << endl;
-
     Mat input_image = imread("/home/vansha/Desktop/Code/Virtual_MIDI/assets/test_hand_image.jpg");
 
 
@@ -39,8 +36,9 @@ int main()
 
     Py_Initialize();
 
-    
-    PyObject* python_code = PyImport_ImportModule("hand_track");
+    PyObject* python_code = PyImport_ImportModule("hand_tracking");
+
+    cout << "lets see if the code detecting the python file" << python_code << endl;
 
     PyObject* cvt_img = ConvertImageToNumpy(input_image);
 
