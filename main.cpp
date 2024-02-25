@@ -15,13 +15,24 @@ int main()
 
     Py_Initialize();
 
-    PyObject* python_code = PyImport_ImportModule("hand_track.py");
+    cout << "The interpretor is imported"<< endl;
+
+    PyObject* python_code = PyImport_ImportModule("hand_track");
+
 
     if(python_code = NULL){
 
-        cout<<"Not Open!!!"<<endl; 
+        cout<<"Not Openned"<<endl; 
+        // PyObject* print_function = PyObject_GetAttrString(python_code,"print_something");
+        // if(print_function = NULL){
+
+        //     cout << "Error Getting the Function!" << endl;
+        // }
 
     }    
+
+
+    // PyObject_CallObject(print_function,NULL);
 
 
 }

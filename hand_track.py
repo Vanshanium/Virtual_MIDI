@@ -5,6 +5,14 @@ hand_class = mphands.Hands()
 draw = mp.solutions.drawing_utils
 
 
+print("Pokemons!!!! in this file!!!")
+
+
+def print_something():
+    print("Hey this code is working!")
+
+
+
 def get_hands(image):
     
     results = hand_class.process(image)
