@@ -52,6 +52,35 @@ int main()
 
         PyObject* result = PyObject_CallFunctionObjArgs(print_function,cvt_img,NULL);
         
+        if(PyList_Check(result)){
+
+
+            int size = PyList_Size(result);
+
+            for(int i = 0;i < size; ++i){
+
+
+
+
+                PyObject* inner_cord = PyList_GetItem(result,i);
+
+                float x = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0));
+                float y = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1));
+
+
+                cout << "These are the cordinates from the c code "<< x << "," << y << endl;
+                circle(input_image,Point((int)(940*x),(int)(530*y)),5,Scalar(100,222,100),-1);
+
+            
+            
+            
+            }
+        
+        
+        }
+    
+        imshow("Drawn",input_image);
+        waitKey();
     }
 
     Py_Finalize();

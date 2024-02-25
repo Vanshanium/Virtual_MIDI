@@ -23,3 +23,6 @@ def get_hands(image):
             output_array.append(cords)
 
             cords = []
+
+    print(output_array)
+    return output_array
