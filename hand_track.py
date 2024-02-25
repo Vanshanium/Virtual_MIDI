@@ -1,11 +1,12 @@
 import mediapipe as mp
+import cv2 as cv
+import ctypes
+import numpy as np
+
 
 mphands = mp.solutions.hands
 hand_class = mphands.Hands()
 draw = mp.solutions.drawing_utils
-
-
-print("Pokemons!!!! in this file!!!")
 
 
 def print_something():
@@ -14,15 +15,14 @@ def print_something():
 
 
 def get_hands(image):
-    
-    results = hand_class.process(image)
 
-    if results.multi_hand_landmarks:
-        
-        for marks in results.multi_hand_landmarks:
+    results = hand_class.process(image)
     
-            print("Yesss!!")
-            # draw.draw_landmarks(image,marks)
+    i = 0
+
+    for marks in results.multi_hand_landmarks:
+        for landmarks in marks:
+            print(landmarks['x']",",landmarks['y'])
 
 
 

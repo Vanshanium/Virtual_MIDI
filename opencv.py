@@ -7,11 +7,11 @@ import hand_track
 
 frame = cv.imread("/home/vansha/Desktop/Code/Virtual_MIDI/assets/test_hand_image.jpg")
 
-
+print(type(frame))
 
 # success,frame = cap.read()
 
-frame = cv.cvtColor(frame,cv.COLOR_BGR2RGB)
+# frame = cv.cvtColor(frame,cv.COLOR_BGR2RGB)
 
 hand_track.get_hands(frame)
 
