@@ -3,6 +3,14 @@
 #include"video_processing.h"
 #include<cstring>
 
+#include<Python.h> //To Call Python Functions in this code!!
+
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#include<numpy/ndarrayobject.h> // To convert the Mat images into Numpy array.
+
+
+
+
 using namespace std;
 using namespace cv;
 
@@ -12,6 +20,13 @@ Mat frame,warp_mat,warped_image;
 vector<Point2f> selected_points;
 
 float height = 200, width = 600;
+
+
+PyObject* numpy_array;     // Used in the ImageToNumpy()
+
+PyObject* python_result;    //These are pointers i have to alloctate them!!!!!
+
+
 
 
 VideoCapture preprocess()
@@ -29,6 +44,27 @@ VideoCapture preprocess()
     
     return cap;
 
+}
+
+/**
+    @brief This Function converts the Mat file into the Numpy Array to send in the python module function.
+    // This Function should be called after the 
+
+    // Python Uses numpy array as a image.
+
+    @param : cv::Matimage - Takes in the Mat of c++
+    @return : Returns the Numpy array for the python function argument.
+*/
+
+PyObject* ImageToNumpy(const Mat& image) {
+
+    
+
+    npy_intp dimensions[3] = {image.rows, image.cols, image.channels()};
+
+    PyObject* numpy_array = PyArray_SimpleNewFromData(3, dimensions, NPY_UINT8, image.data);
+    
+    return numpy_array;
 }
 
 /**
@@ -150,6 +186,7 @@ Mat region_of_interest(VideoCapture input_cap)
     return warp_mat;    
 }
 
+
 Mat region_of_interest_1(VideoCapture input_cap)
 {
 
@@ -209,6 +246,86 @@ Mat region_of_interest_1(VideoCapture input_cap)
 
     return warp_mat;    
 }
+
+
+/**
+    @brief This function Inits the Python interpretor and finds the function inside of the python file.
+
+
+    @param : NONE
+    @return : PyObject* - returns the pointer to the interpreted python function. 
+*/
+
+PyObject* get_python(){
+
+    Py_Initialize();                           //Inits python interpretor.
+    import_array();                            //Inits Numpy.
+
+    PyObject* python_code = PyImport_ImportModule("hand_tracking");     // opens hand_tracking.py 
+
+
+    //imports only the python module, so you can't write .py
+    // Make sure to include the current working directory to get this module.
+    // run preinstall.sh as source.
+
+
+    if(python_code != NULL){
+
+        PyObject* get_hand_function = PyObject_GetAttrString(python_code,"get_hands");
+
+        return get_hand_function;
+
+    }
+    else{
+
+        cout << "ERROR OPENING PYTHON MODULE!!!" << endl;
+        return NULL;
+
+    }
+
+}
+
+
+/**
+    @brief This is the core function!!
+
+    @param : //TO WRITE
+    @return : //TO WRITE 
+*/
+
+void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image){
+
+    python_result = PyObject_CallFunctionObjArgs(mediapipe_function,ImageToNumpy(input_image),NULL);
+    
+    if(PyList_Check(python_result)){
+
+
+            int size = PyList_Size(python_result);
+
+            for(int i = 0;i < size; ++i){
+
+
+
+
+                PyObject* inner_cord = PyList_GetItem(python_result,i);
+
+                float x = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0));
+                float y = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1));
+
+
+                cout << "These are the cordinates from the c code "<< x << "," << y << endl;
+                circle(input_image,Point((int)(940*x),(int)(530*y)),5,Scalar(100,222,100),-1);
+
+            
+            
+            
+            }
+        }
+
+
+}
+
+
 
 /**
     @brief This is the core function!!

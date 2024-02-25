@@ -3,6 +3,10 @@
 
 #include<opencv4/opencv2/opencv.hpp>
 using namespace cv;
+#include<Python.h>
+
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+#include<numpy/ndarrayobject.h>
 
 VideoCapture preprocess();
 
@@ -13,6 +17,10 @@ Mat region_of_interest_1(VideoCapture input_cap);
 
 Mat video_processing(VideoCapture input_cap,Mat warp_matrix);
 
+PyObject* ImageToNumpy(const Mat& image);
 
+PyObject* get_python();
+
+void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image);
 
 #endif
