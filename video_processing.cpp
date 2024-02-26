@@ -287,40 +287,33 @@ PyObject* get_python(){
 
 
 /**
-    @brief This is the core function!!
+    @brief This is the core function!! This gets the finger cordinates using mediapipe from the python module
 
-    @param : //TO WRITE
-    @return : //TO WRITE 
+
+    @param : Pyobject* - It takes in the pointer to the python function obtain from the get_python()
+    @param : Mat Image - It takes in the Mat image from opencv.
+
+    @return : It return a array of array (2d array) of x,y cordinates of the fingers.
 */
 
 void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image){
 
     python_result = PyObject_CallFunctionObjArgs(mediapipe_function,ImageToNumpy(input_image),NULL);
     
-    if(PyList_Check(python_result)){
 
+    int size = PyList_Size(python_result);
 
-            int size = PyList_Size(python_result);
+    for(int i = 0;i < size; ++i){
 
-            for(int i = 0;i < size; ++i){
+        PyObject* inner_cord = PyList_GetItem(python_result,i);
 
+        float x = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0));
+        float y = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1));
 
+        circle(input_image,Point((int)(640*x),(int)(480*y)),5,Scalar(100,222,100),-1);
 
-
-                PyObject* inner_cord = PyList_GetItem(python_result,i);
-
-                float x = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0));
-                float y = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1));
-
-
-                cout << "These are the cordinates from the c code "<< x << "," << y << endl;
-                circle(input_image,Point((int)(940*x),(int)(530*y)),5,Scalar(100,222,100),-1);
-
-            
-            
-            
-            }
-        }
+    
+    }
 
 
 }
