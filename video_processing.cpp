@@ -19,12 +19,22 @@ Mat frame,warp_mat,warped_image;
 
 vector<Point2f> selected_points;
 
-float height = 200, width = 600;
+float height = 200, width = 840;
 
 
 PyObject* numpy_array;     // Used in the ImageToNumpy()
 
 PyObject* python_result;    //These are pointers i have to alloctate them!!!!!
+
+
+
+//Used in get finger cordinate function.
+int output_array_size;               
+float x;
+float y;
+
+
+npy_intp dimensions[3] = {height, width, 3};
 
 
 
@@ -58,17 +68,12 @@ VideoCapture preprocess()
 
 PyObject* ImageToNumpy(const Mat& image) {
 
-    
-
-    npy_intp dimensions[3] = {image.rows, image.cols, image.channels()};
-
-    PyObject* numpy_array = PyArray_SimpleNewFromData(3, dimensions, NPY_UINT8, image.data);
-    
-    return numpy_array;
+    return PyArray_SimpleNewFromData(3, dimensions, NPY_UINT8, image.data);
 }
 
 /**
     @brief This is also a call back function called to obtain the Perspective warp Matrix.
+    https://pavcreations.com/how-to-pass-rgb-image-data-from-opencv-c-to-python/ --- This is where i got this code from!
 
     // Do these two lines of code manually to reduce redundancy!
 
@@ -298,23 +303,22 @@ PyObject* get_python(){
 
 void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image){
 
-    python_result = PyObject_CallFunctionObjArgs(mediapipe_function,ImageToNumpy(input_image),NULL);
-    
+    python_result = PyObject_CallFunctionObjArgs(mediapipe_function,ImageToNumpy(input_image),NULL);    
 
-    int size = PyList_Size(python_result);
+    output_array_size = PyList_Size(python_result);
 
-    for(int i = 0;i < size; ++i){
+    for(int i = 0;i < output_array_size; ++i){
+
 
         PyObject* inner_cord = PyList_GetItem(python_result,i);
 
-        float x = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0));
-        float y = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1));
+        x = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0));
+        y = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1));
 
-        circle(input_image,Point((int)(640*x),(int)(480*y)),5,Scalar(100,222,100),-1);
+        circle(input_image,Point((int)(width*x),(int)(height*y)),10,Scalar(100,222,100),-1);
 
     
     }
-
 
 }
 

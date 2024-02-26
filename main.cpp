@@ -17,13 +17,13 @@ using namespace chrono;
 
 int main()
 {
-
-    // Mat input_image = imread("/home/vansha/Desktop/Code/Virtual_MIDI/assets/test_hand_image.jpg");
     
     PyObject* print_function = get_python();
 
     Mat input_image;
-    VideoCapture cap(0);
+    VideoCapture cap = preprocess();
+
+    Mat wrapper = region_of_interest_1(cap);
 
 
     int frameCount = 0;
@@ -34,21 +34,19 @@ int main()
 
     while(true){
 
-        cap.read(input_image);
+
+        input_image = video_processing(cap,wrapper);
 
         cvtColor(input_image,input_image,COLOR_BGR2RGB);
 
-
         get_fingers_landmark(print_function,input_image);
-
-        imshow("Drawn",input_image);
 
         frameCount ++;
 
         auto endTime = high_resolution_clock::now();
 
         auto elapsedTime = duration_cast<seconds>(endTime - startTime).count();
-
+        
         if (elapsedTime >= 1) {
             double fps = frameCount / static_cast<double>(elapsedTime);
             cout << "Frame rate: " << fps << " fps" << endl;
@@ -57,6 +55,10 @@ int main()
             frameCount = 0;
             startTime = high_resolution_clock::now();
         }
+
+        cvtColor(input_image,input_image,COLOR_RGB2BGR);
+
+        imshow("Drawn",input_image);
 
         if(waitKey(20) == 'q'){
             break;
