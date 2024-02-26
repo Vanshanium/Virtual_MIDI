@@ -1,35 +1,42 @@
 #include<iostream>
 #include<opencv4/opencv2/opencv.hpp>
-#include<opencv4/opencv2/tracking.hpp>
-#include"video_processing.h"
-#include<Python.h>
 
-#include<chrono>
+#include"video_processing.h"
+#include"keyboard_processing.h"
+
+
+#include<Python.h>
+#include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
+
 
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include<numpy/ndarrayobject.h>
 
+
+
 using namespace std;
 using namespace cv; 
+using namespace sf;
 
-using namespace chrono;
 
 int main()
 {
-    
+
+    RenderWindow piano(VideoMode(piano_x,piano_y),"Piano_window");
+
+    Key_class mykeys;
+
+    Event my_event;
+
+
     PyObject* print_function = get_python();
 
     Mat input_image;
     VideoCapture cap = preprocess();
 
     Mat wrapper = region_of_interest_1(cap);
-
-
-    int frameCount = 0;
-    auto startTime = high_resolution_clock::now();
-    
-
 
 
     while(true){
@@ -41,24 +48,40 @@ int main()
 
         get_fingers_landmark(print_function,input_image);
 
-        frameCount ++;
-
-        auto endTime = high_resolution_clock::now();
-
-        auto elapsedTime = duration_cast<seconds>(endTime - startTime).count();
-        
-        if (elapsedTime >= 1) {
-            double fps = frameCount / static_cast<double>(elapsedTime);
-            cout << "Frame rate: " << fps << " fps" << endl;
-
-            // Reset variables for next interval
-            frameCount = 0;
-            startTime = high_resolution_clock::now();
-        }
-
         cvtColor(input_image,input_image,COLOR_RGB2BGR);
 
         imshow("Drawn",input_image);
+
+
+        while(piano.pollEvent(my_event)){
+
+            if (my_event.type == Event::Closed)
+            {
+                piano.close();
+            }
+
+
+            if(my_event.type == Event::KeyPressed){
+                
+                mykeys.key_check(my_event);
+                
+                }
+
+            if(my_event.type == Event::KeyReleased){
+            
+                mykeys.key_recheck(my_event);
+
+            }    
+            
+
+            piano.clear();
+
+            mykeys.draw_keys(piano);
+
+            piano.display();
+
+        }
+
 
         if(waitKey(20) == 'q'){
             break;

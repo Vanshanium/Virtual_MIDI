@@ -3,10 +3,14 @@
 
 #include<opencv4/opencv2/opencv.hpp>
 using namespace cv;
+
 #include<Python.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include<numpy/ndarrayobject.h>
+
+#include"keyboard_processing.h"
+
 
 VideoCapture preprocess();
 

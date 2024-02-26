@@ -19,6 +19,7 @@ set(CMAKE_CXX_COMPILER g++)
 set(SOURCE_FILES 
     main.cpp
     video_processing.cpp
+    keyboard_processing.cpp
 )
 
 
@@ -36,17 +37,15 @@ add_executable(exec ${SOURCE_FILES})
 
 # This links those librabies Linking is done after making the object file!!
 # This gives the path to the .so files!
-target_link_libraries(exec ${OpenCV_LIBS}
- python3.10)
-
-# IT adds -l with the variable provided!
 
 
-
-add_executable(key Key_learning.cpp)
-
-target_link_libraries(key 
+target_link_libraries(exec 
+${OpenCV_LIBS}
+python3.10 
 sfml-graphics
 sfml-window
 sfml-system
 sfml-audio)
+
+# IT adds -l with the variable provided!
+
