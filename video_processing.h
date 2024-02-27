@@ -14,7 +14,6 @@ using namespace cv;
 
 VideoCapture preprocess();
 
-
 Mat region_of_interest(VideoCapture input_cap);
 
 Mat region_of_interest_1(VideoCapture input_cap);
@@ -25,6 +24,6 @@ PyObject* ImageToNumpy(const Mat& image);
 
 PyObject* get_python();
 
-void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image);
+void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image,Key_class key_obj);
 
 #endif

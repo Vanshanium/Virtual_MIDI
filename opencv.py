@@ -1,5 +1,5 @@
 import cv2 as cv
-import hand_track
+import hand_tracking
 
 
 # cap = cv.VideoCapture(0)

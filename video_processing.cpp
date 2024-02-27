@@ -302,7 +302,7 @@ PyObject* get_python(){
     @return : It return a array of array (2d array) of x,y cordinates of the fingers.
 */
 
-void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image){
+void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image,Key_class key_obj){
 
     python_result = PyObject_CallFunctionObjArgs(mediapipe_function,ImageToNumpy(input_image),NULL);    
 
@@ -313,13 +313,35 @@ void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image){
 
         PyObject* inner_cord = PyList_GetItem(python_result,i);
 
-        x = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0));
-        y = PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1));
+        x = (PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0)))*width;
+        y = (PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1)))*height;
 
-        circle(input_image,Point((int)(width*x),(int)(height*y)),10,Scalar(100,222,100),-1);
+        cout << "This is the X values" << x << endl;
+
+        if(0 < x && x < 40 ){
+
+            trigger_key();
+
+        }
+        else{
+
+            release_key();
+            
+        }
+        
+        if(40 < x && x < 80 ){
+
+            key_obj.key_list[1].set_play();
+
+            // press_specific_note(key_obj,1);
+
+        }
+
+        circle(input_image,Point((int)x,(int)y),10,Scalar(100,222,100),-1);
 
     
     }
+
 
 }
 

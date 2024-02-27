@@ -22,13 +22,10 @@ using namespace sf;
 
 
 int main()
-{
+{   
+    
 
-    RenderWindow piano(VideoMode(piano_x,piano_y),"Piano_window");
 
-    Key_class mykeys;
-
-    Event my_event;
 
 
     PyObject* print_function = get_python();
@@ -37,7 +34,10 @@ int main()
     VideoCapture cap = preprocess();
 
     Mat wrapper = region_of_interest_1(cap);
-
+    
+    RenderWindow piano(VideoMode(piano_x,piano_y),"Piano_window");
+    Key_class mykeys;
+    Event my_event;
 
     while(true){
 
@@ -46,7 +46,7 @@ int main()
 
         cvtColor(input_image,input_image,COLOR_BGR2RGB);
 
-        get_fingers_landmark(print_function,input_image);
+        get_fingers_landmark(print_function,input_image,mykeys);
 
         cvtColor(input_image,input_image,COLOR_RGB2BGR);
 

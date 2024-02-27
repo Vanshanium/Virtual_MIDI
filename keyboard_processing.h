@@ -6,6 +6,10 @@
 #include<iostream>
 
 
+#include<X11/Xlib.h>
+#include<X11/keysym.h>
+#include<X11/extensions/XTest.h>
+
 using namespace sf;
 using namespace std;
 
@@ -22,6 +26,10 @@ extern Color pressed_white;
 
 extern Color key_black;
 extern Color pressed_black;
+
+
+
+
 
 class Key_class{
 
@@ -187,5 +195,10 @@ public:
 
 };
 
+
+void trigger_key();
+
+
+void release_key();
 
 #endif

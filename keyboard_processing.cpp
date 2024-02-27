@@ -2,6 +2,11 @@
 #include<SFML/Audio.hpp>
 #include<iostream>
 
+#include"keyboard_processing.h"
+
+#include<X11/Xlib.h>
+#include<X11/keysym.h>
+#include<X11/extensions/XTest.h>
 
 using namespace sf;
 using namespace std;
@@ -22,56 +27,23 @@ Color key_black(40,40,45);
 Color pressed_black(85,95,130);
 
 
+void trigger_key(){
 
+    Display* display = XOpenDisplay(NULL);
 
-// int main()
-// {
+    XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_1), True, 0);
+    XFlush(display);
+    // XCloseDisplay(display);
 
-//     RenderWindow piano(VideoMode(piano_x,piano_y),"Piano_window");
+}
 
-//     Key_class mykeys;
+void release_key(){
 
-//     Event my_event;
+    Display* display = XOpenDisplay(NULL);
 
+    XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_1), False, 0);
+    XFlush(display);
+    // XCloseDisplay(display);
 
-//     // This is the main or game loop.
-//     while(piano.isOpen())
-//     {
+}
 
-
-//         // Listens for all the events!!! Lets fucking call it Event Loop!
-//         // Works until there are events in the array
-//         while(piano.pollEvent(my_event)){
-
-//             if (my_event.type == Event::Closed)
-//             {
-//                 piano.close();
-//             }
-
-
-//             if(my_event.type == Event::KeyPressed){
-                
-//                 mykeys.key_check(my_event);
-                
-//                 }
-
-//             if(my_event.type == Event::KeyReleased){
-            
-//                 mykeys.key_recheck(my_event);
-
-//             }    
-            
-
-//             piano.clear();
-
-//             mykeys.draw_keys(piano);
-
-//             piano.display();
-
-
-//         }
-
-
-//     }
-    
-// }

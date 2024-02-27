@@ -45,7 +45,9 @@ python3.10
 sfml-graphics
 sfml-window
 sfml-system
-sfml-audio)
+sfml-audio
+X11
+Xtst)
 
 # IT adds -l with the variable provided!
 
