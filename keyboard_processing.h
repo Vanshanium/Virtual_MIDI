@@ -10,6 +10,11 @@
 #include<X11/keysym.h>
 #include<X11/extensions/XTest.h>
 
+
+#include<unistd.h>
+#include <libgen.h>
+
+
 using namespace sf;
 using namespace std;
 
@@ -28,6 +33,7 @@ extern Color key_black;
 extern Color pressed_black;
 
 
+string path_from_note(string note_name);
 
 
 
@@ -58,13 +64,15 @@ public:
     string key_type;
     Music* music_obj;
 
+    bool isplayed = false;
+
     note(string type,int position,vector<note>& key_array,string note_path)
     {
         key_type = type;
 
         music_obj = new Music();
 
-        music_obj->openFromFile(note_path);
+        music_obj->openFromFile(path_from_note(note_path));
 
         if (type == "white")
         {
@@ -90,6 +98,7 @@ public:
     }
 
     void set_default(){
+
         if (key_type == "white"){
             
             shape.setFillColor(key_white);
@@ -101,22 +110,30 @@ public:
 
         }
         music_obj->stop();
+
+        isplayed = false;
+        
     }
 
     void set_play(){
 
-        if (key_type == "white"){
+        if (!isplayed){
+
+            if (key_type == "white"){
+                
+                shape.setFillColor(pressed_white);
             
-            shape.setFillColor(pressed_white);
-        
-        }
-        else{
-            
-            shape.setFillColor(pressed_black);
+            }
+            else{
+                
+                shape.setFillColor(pressed_black);
+
+            }
+
+            music_obj->play();
+            isplayed = true;
 
         }
-
-        music_obj->play();
 
     }
         
@@ -137,19 +154,20 @@ public:
         // OOPS is Sexy!!!!!
         // why black keys are in minoriity ??????
 
-        note c4 ("white",2,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/c4.wav");
-        note d4 ("white",82,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/d4.wav");
-        note e4 ("white",162,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/e4.wav");
-        note f4 ("white",242,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/f4.wav");
-        note g4 ("white",322,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/g4.wav");
-        note a4 ("white",402,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/a4.wav");
-        note b4 ("white",482,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/b4.wav");
+
+        note c4 ("white",2,key_list,"c4");
+        note d4 ("white",82,key_list,"d4");
+        note e4 ("white",162,key_list,"e4");
+        note f4 ("white",242,key_list,"f4");
+        note g4 ("white",322,key_list,"g4");
+        note a4 ("white",402,key_list,"a4");
+        note b4 ("white",482,key_list,"b4");
  
-        note db ("black",55,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/db4.wav");
-        note eb ("black",135,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/eb4.wav");
-        note gb ("black",295,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/gb4.wav");
-        note ab ("black",375,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/ab4.wav");
-        note bb ("black",455,key_list,"/home/vansha/Desktop/Code/Virtual_MIDI/assets/Notes/bb4.wav");
+        note db4 ("black",55,key_list,"db4");
+        note eb4 ("black",135,key_list,"eb4");
+        note gb4 ("black",295,key_list,"gb4");
+        note ab4 ("black",375,key_list,"ab4");
+        note bb4 ("black",455,key_list,"bb4");
 
     }  
  

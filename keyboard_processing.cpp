@@ -8,6 +8,12 @@
 #include<X11/keysym.h>
 #include<X11/extensions/XTest.h>
 
+
+
+#include<unistd.h>
+#include <libgen.h>
+
+
 using namespace sf;
 using namespace std;
 
@@ -25,6 +31,21 @@ Color pressed_white(175,225,190);
 
 Color key_black(40,40,45);
 Color pressed_black(85,95,130);
+
+
+string path_from_note(string note_name){
+
+    char cwd[255];
+
+    getcwd(cwd,sizeof(cwd));
+
+    string parent_dir = dirname(cwd);
+
+    return parent_dir + "/assets/Notes/" + note_name + ".wav";
+
+}
+
+
 
 
 void trigger_key(){

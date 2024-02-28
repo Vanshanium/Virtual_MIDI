@@ -15,7 +15,7 @@ results = hand_class.process(test_image)
 
 finger_tip_indices = [4, 8, 12, 16, 20]
 
-finger_tip_indices = [4]
+finger_tip_indices = [8]
 
 output_array = []
 cords = []

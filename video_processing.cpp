@@ -316,7 +316,6 @@ void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image,Key_class
         x = (PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,0)))*width;
         y = (PyFloat_AS_DOUBLE(PyList_GetItem(inner_cord,1)))*height;
 
-        cout << "This is the X values" << x << endl;
 
         if(0 < x && x < 40 ){
 
@@ -331,7 +330,7 @@ void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image,Key_class
         
         if(40 < x && x < 80 ){
 
-            key_obj.key_list[1].set_play();
+            // key_obj.key_list[1].set_play();
 
             // press_specific_note(key_obj,1);
 
