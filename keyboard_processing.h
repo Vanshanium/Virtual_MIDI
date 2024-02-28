@@ -171,7 +171,9 @@ public:
         note g6 ("white",1442,key_list,"g6");
         note a6 ("white",1522,key_list,"a6");
         note b6 ("white",1602,key_list,"b6");
- 
+
+        //Defining the black keys.
+                                                // They are defined later as the white keys are underneath them
         note db4 ("black",55,key_list,"db4");
         note eb4 ("black",135,key_list,"eb4");
         note gb4 ("black",295,key_list,"gb4");

@@ -14,8 +14,6 @@ using namespace std;
 
 
 
-
-
                                  // SFML Piano Dimensions.
 
 int piano_x = 1680, piano_y = 400;
@@ -64,10 +62,8 @@ enum Note_enum {
             so, People like Ayush don't kill themselfs after coping this code!
 
 
-    @param : Pyobject* - It takes in the pointer to the python function obtain from the get_python()
-    @param : Mat Image - It takes in the Mat image from opencv.
-
-    @return : It return a array of array (2d array) of x,y cordinates of the fingers.
+    @param : String - It takes in string of the note!
+    @return : It return path of the given note!.
 */
 
 string path_from_note(string note_name){
@@ -85,42 +81,392 @@ string path_from_note(string note_name){
 
 void play_keys_from_cord(float x,float y,Key_class& key_obj){
 
-    cout << "This is the y value!!!" << y << endl;
 
-    // C4 Key.
-    if(0 < x && x < 40 ){
+    
+    if(y < 125){                       // Checking for the black keys.
+        
+        // DB4
+        if(27.5 < x && x < 52.5){
 
-        key_obj.key_list[C4].set_play();
+            key_obj.key_list[DB4].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[DB4].set_default();
+        }
+
+        // EB4
+        if(67.5 < x && x < 92.5){
+
+            key_obj.key_list[EB4].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[EB4].set_default();
+        }
+
+        // GB4
+        if(147.5 < x && x < 172.5){
+
+            key_obj.key_list[EB5].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[EB5].set_default();
+        }
+
+        //AB4
+        if(187.5 < x && x < 212.5){
+
+            key_obj.key_list[AB4].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[AB4].set_default();
+        }
+
+        //BB4
+        if(227.5 < x && x < 252.5){
+
+            key_obj.key_list[BB4].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[BB4].set_default();
+        }
+        
+        //DB5
+        if(307.5 < x && x < 332.5){
+
+            key_obj.key_list[DB5].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[DB5].set_default();
+        }
+        
+        //EB5
+        if(347.5 < x && x < 372.5){
+
+            key_obj.key_list[EB5].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[EB5].set_default();
+        }
+
+        //GB5
+        if(427.5 < x && x < 452.5){
+
+            key_obj.key_list[GB5].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[GB5].set_default();
+        }
+
+        //AB5
+        if(467.5 < x && x < 492.5){
+
+            key_obj.key_list[AB5].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[AB5].set_default();
+        }
+
+        //BB5
+        if(507.5 < x && x < 532.5){
+
+            key_obj.key_list[BB5].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[BB5].set_default();
+        }
+
+        //DB6
+        if(587.5 < x && x < 612.5){
+
+            key_obj.key_list[DB6].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[DB6].set_default();
+        }
+
+        //EB6
+        if(627.5 < x && x < 652.5){
+
+            key_obj.key_list[EB6].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[EB6].set_default();
+        }
+
+        //GB6
+        if(707.5 < x && x < 732.5){
+
+            key_obj.key_list[GB6].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[GB6].set_default();
+        }
+
+        //AB6
+        if(747.5 < x && x < 772.5){
+
+            key_obj.key_list[AB6].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[AB6].set_default();
+        }
+
+        //BB6 Atlast......Damn I will feel bad if some Mofo copied this code.
+        if(787.5 < x && x < 812.5){
+
+            key_obj.key_list[BB6].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[BB6].set_default();
+        }
 
     }
-    else{
 
-        key_obj.key_list[C4].set_default();
+    else{                             //Check for the white keys!
+
+        // C4 Key.
+        if(0 < x && x < 40 ){
+
+            key_obj.key_list[C4].set_play();
+
+        }
+        else{
+
+            key_obj.key_list[C4].set_default();
+        }
+
+
+        //D4 Key.
+        if(40 < x && x < 80 ){
+
+            key_obj.key_list[D4].set_play();
+        }
+        else{
+
+            key_obj.key_list[D4].set_default();
+        }
+
+        // E4 Key
+        if(80 < x && x < 120 ){
+
+            key_obj.key_list[E4].set_play();
+        }
+        else{
+
+            key_obj.key_list[E4].set_default();
+        }
+
+        // F4 Key
+        if(120 < x && x < 160 ){
+
+            key_obj.key_list[F4].set_play();
+        }
+        else{
+
+            key_obj.key_list[F4].set_default();
+        }
+
+        // G4 Key
+        if(160 < x && x < 200 ){
+
+            key_obj.key_list[G4].set_play();
+        }
+        else{
+
+            key_obj.key_list[G4].set_default();
+        }
+
+        // A4 Key
+        if(200 < x && x < 240 ){
+
+            key_obj.key_list[A4].set_play();
+        }
+        else{
+
+            key_obj.key_list[A4].set_default();
+        }
+
+        // B4 Key
+        if(240 < x && x < 280 ){
+
+            key_obj.key_list[B4].set_play();
+        }
+        else{
+
+            key_obj.key_list[B4].set_default();
+        }
+
+        // C5 Key
+        if(280 < x && x < 320 ){
+
+            key_obj.key_list[C5].set_play();
+        }
+        else{
+
+            key_obj.key_list[C5].set_default();
+        }
+
+        // D5 Key
+        if(320 < x && x < 360){
+
+            key_obj.key_list[D5].set_play();
+        }
+        else{
+
+            key_obj.key_list[D5].set_default();
+        }
+
+        // E5 Key
+        if(360 < x && x < 400 ){
+
+            key_obj.key_list[E5].set_play();
+        }
+        else{
+
+            key_obj.key_list[E5].set_default();
+        }
+
+        // F5 Key
+        if(400 < x && x < 440 ){
+
+            key_obj.key_list[F5].set_play();
+        }
+        else{
+
+            key_obj.key_list[F5].set_default();
+        }
+
+        // G5 Key
+        if(440 < x && x < 480 ){
+
+            key_obj.key_list[G5].set_play();
+        }
+        else{
+
+            key_obj.key_list[G5].set_default();
+        }
+
+        // A5 Key
+        if(480 < x && x < 520 ){
+
+            key_obj.key_list[A5].set_play();
+        }
+        else{
+
+            key_obj.key_list[A5].set_default();
+        }
+
+        // B5 Key
+        if(520 < x && x < 560 ){
+
+            key_obj.key_list[B5].set_play();
+        }
+        else{
+
+            key_obj.key_list[B5].set_default();
+        }
+
+          // C6 Key
+        if(560 < x && x < 600 ){
+
+            key_obj.key_list[C6].set_play();
+        }
+        else{
+
+            key_obj.key_list[C6].set_default();
+        }
+
+        // D6 Key
+        if(600 < x && x < 640){
+
+            key_obj.key_list[D6].set_play();
+        }
+        else{
+
+            key_obj.key_list[D6].set_default();
+        }
+
+        // E6 Key
+        if(640 < x && x < 680 ){
+
+            key_obj.key_list[E6].set_play();
+        }
+        else{
+
+            key_obj.key_list[E6].set_default();
+        }
+
+        // F6 Key
+        if(680 < x && x < 720 ){
+
+            key_obj.key_list[F6].set_play();
+        }
+        else{
+
+            key_obj.key_list[F6].set_default();
+        }
+
+        // G6 Key
+        if(720 < x && x < 760){
+
+            key_obj.key_list[G6].set_play();
+        }
+        else{
+
+            key_obj.key_list[G6].set_default();
+        }
+
+        // A6 Key
+        if(760 < x && x < 800 ){
+
+            key_obj.key_list[A6].set_play();
+        }
+        else{
+
+            key_obj.key_list[A6].set_default();
+        }
+
+        // B6 Key
+        if(800 < x && x < 840 ){
+
+            key_obj.key_list[B6].set_play();
+        }
+        else{
+
+            key_obj.key_list[B6].set_default();
+        }
     }
 
-    // DB4
-
-
-    // if( x < 105 && 150 < y){
-
-    //     key_obj.key_list[DB4].set_play();
-    // }
-    // else{
-
-    //     key_obj.key_list[DB4].set_default();
-    // }
-
-    //D4 Key.
-    if(40 < x && x < 80 ){
-
-        key_obj.key_list[1].set_play();
-    }
-    else{
-
-        key_obj.key_list[1].set_default();
-    }
-
-    // E4
 
 
 
