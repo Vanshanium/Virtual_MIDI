@@ -19,6 +19,8 @@ pip install mediapipe
 
 pip install numpy
 
+mkdir build/
+cd ./build/
 
 
 export PYTHONPATH=$(pwd):$PYTHONPATH

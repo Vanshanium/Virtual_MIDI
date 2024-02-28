@@ -24,6 +24,6 @@ PyObject* ImageToNumpy(const Mat& image);
 
 PyObject* get_python();
 
-void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image,Key_class key_obj);
+void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image,Key_class &key_obj);
 
 #endif

@@ -58,29 +58,18 @@ int main()
             if (my_event.type == Event::Closed)
             {
                 piano.close();
+                break;
             }
 
-
-            if(my_event.type == Event::KeyPressed){
-                
-                mykeys.key_check(my_event);
-                
-                }
-
-            if(my_event.type == Event::KeyReleased){
-            
-                mykeys.key_recheck(my_event);
-
-            }    
-            
-
-            piano.clear();
-
-            mykeys.draw_keys(piano);
-
-            piano.display();
-
         }
+    
+
+        piano.clear();
+
+        mykeys.draw_keys(piano);
+
+        piano.display();
+
 
 
         if(waitKey(20) == 'q'){
