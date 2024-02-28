@@ -23,35 +23,27 @@ using namespace sf;
 
 int main()
 {   
-    
 
+    PyObject* print_function = get_python();           // Initiates the Python Interpretor.
 
-
-
-    PyObject* print_function = get_python();
-
-    Mat input_image;
-    VideoCapture cap = preprocess();
+    VideoCapture cap = preprocess();                  // Go read about it in Video_processing.cpp
 
     Mat wrapper = region_of_interest_1(cap);
+
+
+    //  To define the The Virtual Keyboard
+    
     
     RenderWindow piano(VideoMode(piano_x,piano_y),"Piano_window");
     Key_class mykeys;
     Event my_event;
 
+
+    
+
     while(true){
 
-
-        input_image = video_processing(cap,wrapper);
-
-        cvtColor(input_image,input_image,COLOR_BGR2RGB);
-
-        get_fingers_landmark(print_function,input_image,mykeys);
-
-        cvtColor(input_image,input_image,COLOR_RGB2BGR);
-
-        imshow("Drawn",input_image);
-
+        video_processing(cap,wrapper,print_function,mykeys);             // This does the magic
 
         while(piano.pollEvent(my_event)){
 
@@ -62,20 +54,18 @@ int main()
             }
 
         }
-    
 
         piano.clear();
 
-        mykeys.draw_keys(piano);
+        mykeys.draw_keys(piano);                                     // This draws the Virtual Piano
 
         piano.display();
-
-
 
         if(waitKey(20) == 'q'){
             break;
         }    
 
     }
+
 
 }

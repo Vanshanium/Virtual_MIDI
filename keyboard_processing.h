@@ -25,14 +25,40 @@ extern Color pressed_black;
 
 
 
+/**
+    @brief This Code is created to get the Path of the Notes from the assets folder.
+            so, People like Ayush don't kill themselfs after coping this code!
+
+
+    @param : String - It takes in string of the note!
+    @return : It return path of the given note!.
+*/
 
 string path_from_note(string note_name);
+
+
+
+/**
+    @brief This is the first Class I have written and its damn cool.
+    
+    This Class made me love the OOPS
+
+    @param : float x - The x-coordinate of the finger!
+    @param : float y - The y-coordinate of the finger!
+
+    @return : Dont go and see the structure of the function.....You will regret it.
+*/
+
 
 
 class Key_class{
 
 
 private:
+
+
+// remove this Keymapping too.
+
 
 Keyboard::Key Keymapping[36] = {Keyboard::Num1,
 Keyboard::Num2,
@@ -49,6 +75,13 @@ Keyboard::W,
 
 };
 
+
+// Classes inside of the class!!!!
+// This is the power of Abstraction.
+// This makes making a note a hell lot easier.
+
+
+
 class note{
 
 public:
@@ -59,7 +92,10 @@ public:
 
     bool isplayed = false;
 
-    note(string type,int position,vector<note>& key_array,string note_path)
+
+    // Note Class Constructor.
+
+    note(string type,int position,vector<note>& key_array,string note_path)           // It takes in the vector and appends the note into it..
     {
         key_type = type;
 
@@ -94,7 +130,7 @@ public:
 
         if (key_type == "white"){
             
-            shape.setFillColor(key_white);
+            shape.setFillColor(key_white);                              // set the color to defualt
         
         }
         else{
@@ -110,11 +146,17 @@ public:
 
     void set_play(){
 
+
+        // This is the Logic right there!!!!!
+        // If it is set to play then this lines won't gonna work
+        // Hence the keys don't plays again and again and again........................................And it sounds horrifying
+
+
         if (!isplayed){
 
             if (key_type == "white"){
                 
-                shape.setFillColor(pressed_white);
+                shape.setFillColor(pressed_white);                       // Sets the color to played!!
 
             }
             else{
@@ -124,7 +166,7 @@ public:
             }
 
             music_obj->play();
-            isplayed = true;
+            isplayed = true;                                                  // hash this line and know how!!!
 
         }
 
@@ -199,7 +241,8 @@ public:
 
     // Write what does this do!
     void draw_keys(RenderWindow& window){
-
+        
+        // this is where I fell for OOPS 
         for(note& key : key_list){
 
             window.draw(key.shape);
@@ -207,6 +250,9 @@ public:
     
 
     }
+
+
+    // remove these two functions
 
     void key_check(Event& event){
 
@@ -237,5 +283,20 @@ public:
 
 };
 
+
+/**
+    @brief This is the algorithm that checks which key should be played!!!
+    This is the worst way to do it(It have O(n)) But i had to give this code in 1 week so.....Who caresssss.
+    I will make it cool with the OOPS and Binary search!
+
+    @param : float x - The x-coordinate of the finger!
+    @param : float y - The y-coordinate of the finger!
+
+    @return : Dont go and see the structure of the function.....You will regret it.
+*/
+
 void play_keys_from_cord(float x,float y,Key_class &key_obj);
+
+
+
 #endif

@@ -4,10 +4,10 @@
 #include"video_processing.h"
 #include"keyboard_processing.h"
 
-#include<Python.h> //To Call Python Functions in this code!!
+#include<Python.h>                                    //To Call Python Functions in this code!!
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#include<numpy/ndarrayobject.h> // To convert the Mat images into Numpy array.
+#include<numpy/ndarrayobject.h>                       // To convert the Mat images into Numpy array.
 
 
 
@@ -35,10 +35,23 @@ float x;
 float y;
 
 
-npy_intp dimensions[3] = {height, width, 3};
+npy_intp dimensions[3] = {(int)height, (int)width, 3}; // This is used in Mat to Numpy conversion. 
 
 
 
+
+
+
+
+
+/**
+    @brief This Function Provides with the VideoCapture cap. 
+    // Adjust the Ip to connect to your own network.
+
+    TO DO : Write a adb script to install the ipsteam apk and open and start the stream!!! 
+
+    @return : Returns the cap!.
+*/
 
 VideoCapture preprocess()
 {
@@ -321,48 +334,48 @@ void get_fingers_landmark(PyObject* mediapipe_function,Mat input_image,Key_class
 
         play_keys_from_cord(x,y,key_obj);
 
-    
     }
-
 
 }
 
 
 
 /**
-    @brief This is the core function!!
+    @brief This is the core function that does everything!!!
 
-    @param : //TO WRITE
-    @return : //TO WRITE 
+    @param : VideoCapture - Cap from where the Video input is coming from! Read the Documentation of Opencv WTF are u reading
+    @param : Mat - Persepective Wrapper matrix.
+    @param : PyObject* - Pointer to the Interpertated Python Mediapipe function.
+    @param : Key_class - send in the key command to play them.
+
+    @return : It returns superman! // Stop reading it!!!
+
 */
 
 
-Mat video_processing(VideoCapture input_cap,Mat warp_matrix)
+void video_processing(VideoCapture input_cap,Mat warp_matrix,PyObject* mediapipe_function,Key_class& key_obj)
 {   
 
     input_cap.read(frame);
 
     if(!frame.empty()){
 
-    warpPerspective(frame,warped_image,warp_matrix,Point(width,height));
-    // This line crops and wraps it in a perfect rectangle!
+        warpPerspective(frame,frame,warp_matrix,Point(width,height));
 
-    // imshow("Capture",warped_image);
-    // waitKey(1);
+        cvtColor(frame,frame,COLOR_BGR2RGB);                                           // Convert the image to RGB send to the Mediapipe.
+
+        get_fingers_landmark(mediapipe_function,frame,key_obj);
+
+        cvtColor(frame,frame,COLOR_RGB2BGR);
+
+        imshow("Drawn",frame);
+
 
     }
     else{
         cout << "Skiped Frame!!!" << endl;
         destroyAllWindows();
     }
-
-    return warped_image;
-
-    
-    // Crop the image here.
-
-    // blur(frame,blured_frame,Size(15,15));
-    // Canny(blured_frame,canny_frames,30,100);
 
 }
 

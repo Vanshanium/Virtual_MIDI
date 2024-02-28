@@ -79,6 +79,17 @@ string path_from_note(string note_name){
 }
 
 
+/**
+    @brief This is the algorithm that checks which key should be played!!!
+    This is the worst way to do it(It have O(n)) But i had to give this code in 1 week so.....Who caresssss.
+    I will make it cool with the OOPS and Binary search!
+
+    @param : float x - The x-coordinate of the finger!
+    @param : float y - The y-coordinate of the finger!
+
+    @return : There is a void in from front of what can I return from the function huh!?
+*/
+
 void play_keys_from_cord(float x,float y,Key_class& key_obj){
 
 
@@ -468,6 +479,6 @@ void play_keys_from_cord(float x,float y,Key_class& key_obj){
     }
 
 
-
+// I wrote all this pal...
 
 }
