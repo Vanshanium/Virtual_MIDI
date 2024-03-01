@@ -18,7 +18,7 @@ results = hand_class.process(test_image)                         # Test Run to d
 
 finger_tip_indices = [4, 8, 12, 16, 20]
 
-finger_tip_indices = [4] # Play with only one key!
+finger_tip_indices = [8] # Play with only one key!
 
 
 

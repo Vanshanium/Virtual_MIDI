@@ -75,3 +75,7 @@
     },
     "cmake.configureOnOpen": false
 }
+
+{
+    "terminal.integrated.shellArgs.linux": ["-i"]
+}

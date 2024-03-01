@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Installing the Packages
+
+
+
+#This is only for linux....so
+
 
 sudo apt install -y libopencv-dev
 
@@ -19,9 +25,12 @@ pip install mediapipe
 
 pip install numpy
 
+
 mkdir build/
 cd ./build/
-
+cmake ..
+make 
+./exec
 
 export PYTHONPATH=$(pwd):$PYTHONPATH
 export CPLUS_INCLUDE_PATH=/usr/python3.10/
