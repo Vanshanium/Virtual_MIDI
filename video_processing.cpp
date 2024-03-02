@@ -56,7 +56,13 @@ npy_intp dimensions[3] = {(int)height, (int)width, 3}; // This is used in Mat to
 VideoCapture preprocess()
 {
 
-    string Path = "https://192.168.29.122:8080/video";
+
+    string Path;
+
+    cout << "Enter IP created by the IPweb ...";
+    cin >> Path;
+
+    Path = Path + "/video";    
 
     VideoCapture cap;
 

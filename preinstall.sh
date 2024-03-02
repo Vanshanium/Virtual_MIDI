@@ -2,8 +2,6 @@
 
 # Installing the Packages
 
-
-
 #This is only for linux....so
 
 
@@ -25,6 +23,8 @@ pip install mediapipe
 
 pip install numpy
 
+export PYTHONPATH=$(pwd)
+export CPLUS_INCLUDE_PATH=/usr/include/python3.10/
 
 mkdir build/
 cd ./build/
@@ -32,5 +32,3 @@ cmake ..
 make 
 ./exec
 
-export PYTHONPATH=$(pwd):$PYTHONPATH
-export CPLUS_INCLUDE_PATH=/usr/python3.10/

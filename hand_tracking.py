@@ -1,13 +1,13 @@
 import mediapipe as mp
 import cv2 as cv
+import os
 
+cwd = os.getcwd()
+cwd = os.path.dirname(cwd)
 
 # Runs the test to initialize all the variables.
-test_image = cv.imread("/home/vansha/Desktop/Code/Virtual_MIDI/assets/test_hand_image.jpg")
+test_image = cv.imread(f"{cwd}/assets/test_hand_image.jpg")
 test_image = cv.cvtColor(test_image,cv.COLOR_BGR2RGB)
-
-
-
 
 
 mphands = mp.solutions.hands
