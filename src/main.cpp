@@ -1,25 +1,5 @@
-#include<iostream>
-#include<opencv4/opencv2/opencv.hpp>
-
 #include"video_processing.h"
 #include"keyboard_processing.h"
-
-
-#include<Python.h>
-#include <SFML/Graphics.hpp>
-#include<SFML/Audio.hpp>
-
-
-
-#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
-#include<numpy/ndarrayobject.h>
-
-
-
-using namespace std;
-using namespace cv; 
-using namespace sf;
-
 
 int main()
 {   
@@ -28,18 +8,16 @@ int main()
 
     VideoCapture cap = preprocess();                  // Go read about it in Video_processing.cpp
 
-    Mat wrapper = region_of_interest_1(cap);
+    Mat wrapper = region_of_interest_1(cap);          // Generates the matrix to crop and wrap the image.
 
 
-    //  To define the The Virtual Keyboard
     
+    //  To define the The Virtual Keyboard
     
     RenderWindow piano(VideoMode(piano_x,piano_y),"Piano_window");
     Key_class mykeys;
     Event my_event;
 
-
-    
 
     while(true){
 

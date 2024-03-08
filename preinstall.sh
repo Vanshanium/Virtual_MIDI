@@ -13,8 +13,6 @@ sudo apt install -y cmake
 
 sudo apt install -y libsfml-dev
 
-sudo apt install libxtst-dev
-
 sudo apt install python3-pip
 
 pip install opencv-python
