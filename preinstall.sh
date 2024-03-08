@@ -21,7 +21,8 @@ pip install mediapipe
 
 pip install numpy
 
-export PYTHONPATH=$(pwd)
+export PYTHONPATH=$(pwd)/pymodule/
+
 export CPLUS_INCLUDE_PATH=/usr/include/python3.10/
 
 mkdir build/
