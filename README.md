@@ -63,3 +63,7 @@ I had to complete the project to demostrate **ASAP** so I just used the Mediapip
 
             export CPLUS_INCLUDE_PATH= path/to/required/header/file/
 
+
+### - Current Status - 
+
+I have been thinking about making a embedded system to take video input from the phone or a hdmi to convert in into a USB output for the Desktop something like a HDMI CAPTURE CARD!! 
