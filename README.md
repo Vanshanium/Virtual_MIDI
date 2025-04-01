@@ -1,5 +1,7 @@
 <h1 align="center">Virtual Midi</h1>
 
+<img src="./assets/Display.png" width="100%">
+
 <p align="center">This is the coolest thing I have ever worked on! The First Module is complete now, I can play the paper Piano from the fingers.Now for the next module I am planning to train a <strong>neural network</strong> that give me precise <strong>location</strong> of the finger and a <strong>bool</strong> that it is touching the surface or not!</p>
 
 I Used **C++** merely because of the **speed** as **Python** is known for it **snail** like pace, But this could have been a piece of cake if I had done in Python.Yet whats the fun with the easy approach.
